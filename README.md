@@ -15,6 +15,6 @@ git clone https://github.com/karthikkashyap98/ph4youtube
   ```
 - Navigate to the project folder in the terminal and do:
   ```
-  pip install -r requirements
+  pip install -r requirements.txt
   ```
 - This project uses a postgreSQL database, which can be downloaded [here](https://www.openscg.com/postgresql/installers.jsp/).
