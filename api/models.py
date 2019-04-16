@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -8,6 +9,7 @@ class Category(models.Model):
 
 	def __str__(self):
 		return f"{self.title}"
+
 
 class Discovery(models.Model):
 	title = models.CharField(max_length=100)
@@ -28,11 +30,21 @@ class Discovery(models.Model):
 			objs.append(obj)
 		return objs
 
+	@property
+	def comments(self):
+		comments = Comments.objects.filter(discovery=self)
+		return list(comments)	
+
 
 	def __str__(self):
 		return f"{self.title}"
 
-# class Comments(models.Model):
-# 	comment = models.CharField(max_length=100)
-# 	discovery = models.ForeignKey(Discovery, on_delete=models.CASCADE)
+class Comments(models.Model):
+	comment = models.CharField(max_length=100)
+	discovery = models.ForeignKey(Discovery, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return f"{self.user}"
+
 

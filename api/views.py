@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from api.models import Discovery, Category
-from api.serializers import DiscoverySerializer, CategorySerializer, DiscoveryCatalogSerializer
+from api.models import Discovery, Category, Comments
+from api.serializers import DiscoverySerializer, CategorySerializer, DiscoveryCatalogSerializer, CommentSerializer
 from rest_framework import viewsets, status
 from rest_framework.decorators import action 
 from rest_framework.response import Response
@@ -51,6 +51,12 @@ class DiscoveryView(viewsets.ModelViewSet):
 class CategoryView(viewsets.ModelViewSet):
 	queryset = Category.objects.all()
 	serializer_class = CategorySerializer
+
+
+
+class CommentView(viewsets.ModelViewSet):
+	queryset = Comments.objects.all()
+	serializer_class = CommentSerializer
 
 
 

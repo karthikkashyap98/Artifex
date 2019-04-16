@@ -5,6 +5,7 @@ from api import views
 router = routers.DefaultRouter()
 router.register('discovery', views.DiscoveryView)
 router.register('category', views.CategoryView)
+router.register('comments',views.CommentView)
 
 
 
