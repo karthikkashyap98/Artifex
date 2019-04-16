@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class Category(models.Model):
@@ -10,12 +11,28 @@ class Category(models.Model):
 
 class Discovery(models.Model):
 	title = models.CharField(max_length=100)
+	timestamp = models.DateTimeField(auto_now_add = True)
 	url = models.CharField(max_length=150)
 	channel_name = models.CharField(max_length=100)
-	thumbnail = models.ImageField(upload_to = 'media/thumbnails', default = '')
+	thumbnail = models.CharField(max_length=150, blank=True, null=False)
 	description = models.TextField()
-	votes = models.IntegerField()
-	topic = models.ForeignKey(Category, on_delete=models.CASCADE)
+	votes = models.IntegerField(default=0)
+	categories = ArrayField(models.IntegerField(blank=True, null=True), blank=True)
+
+	@property
+	def categories_obj(self):
+		objs = []
+		print(self.categories)
+		for pk in self.categories:
+			obj = Category.objects.get(pk=pk)
+			objs.append(obj)
+		return objs
+
 
 	def __str__(self):
 		return f"{self.title}"
+
+# class Comments(models.Model):
+# 	comment = models.CharField(max_length=100)
+# 	discovery = models.ForeignKey(Discovery, on_delete=models.CASCADE)
+

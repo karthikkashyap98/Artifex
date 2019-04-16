@@ -4,6 +4,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register('discovery', views.DiscoveryView)
+router.register('category', views.CategoryView)
 
 
 
@@ -12,6 +13,10 @@ router.register('discovery', views.DiscoveryView)
 
 urlpatterns = [
 
-	path('', include(router.urls))
-  ]
+	path('', include(router.urls)),
+	path('upvote/<int:id>/', views.upvote),
+	path('downvote/<int:id>/', views.downvote),
+
+	
+ ]
 
