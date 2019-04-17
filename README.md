@@ -18,3 +18,30 @@ git clone https://github.com/karthikkashyap98/ph4youtube
   pip install -r requirements.txt
   ```
 - This project uses a postgreSQL database, which can be downloaded [here](https://www.openscg.com/postgresql/installers.jsp/).
+
+## End Points
+
+  ###  /discovery/
+  `GET` request to this endpoint will provide JSON of catalog or list view of all discoveries as shown below:
+  
+  `POST` request to this endpoint with the following JSON, will create a new Discovery:
+  
+  
+  ### /discovery/id/
+  `GET` request to this endpoint will provide JSON of Discovery with that 'id'. 
+  
+  ### /category/    
+  `GET` request to this endpoint will provide JSON list of all the categories.
+  
+  `POST` request to this endpoint with the following JSON, will create a new Category
+  
+  (detail page can be found at `/category/id/`)
+  ### /comments/
+  `POST` request to this endpoint with the following JSON can add a new comment. 
+  
+  
+  
+  
+  
+  
+  
