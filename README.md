@@ -33,13 +33,19 @@ git clone https://github.com/karthikkashyap98/ph4youtube
   ### /category/    
   `GET` request to this endpoint will provide JSON list of all the categories.
   
-  `POST` request to this endpoint with the following JSON, will create a new Category
+  `POST` request to this endpoint with the following JSON, will create a new Category.
   
-  (detail page can be found at `/category/id/`)
+  (detail page can be found at `/category/id/`).
+  
   ### /comments/
   `POST` request to this endpoint with the following JSON can add a new comment. 
   
   
+  ### /upvote/id/
+  `GET` request to this endpoint will add a vote to the Discovery with that 'id'.
+  
+  ### /downvote/id/
+  `GET` request to this endpoint will remove a vote in the Discovery with that 'id'.
   
   
   
