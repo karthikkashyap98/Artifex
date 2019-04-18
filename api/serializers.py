@@ -4,7 +4,7 @@ from api.models import Discovery, Category, Comments
 class CommentSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Comments
-		fields = ('id','user','comment','discovery')
+		fields = ('id','user','comment','discovery','timestamp')
 
 
 class CategorySerializer(serializers.ModelSerializer):
