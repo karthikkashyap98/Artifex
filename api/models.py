@@ -17,6 +17,7 @@ class Discovery(models.Model):
 	url = models.CharField(max_length=150)
 	channel_name = models.CharField(max_length=100)
 	thumbnail = models.CharField(max_length=150, blank=True, null=False)
+	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	description = models.TextField()
 	votes = models.IntegerField(default=0)
 	categories = ArrayField(models.IntegerField(blank=True, null=True), blank=True)
@@ -24,7 +25,6 @@ class Discovery(models.Model):
 	@property
 	def categories_obj(self):
 		objs = []
-		print(self.categories)
 		for pk in self.categories:
 			obj = Category.objects.get(pk=pk)
 			objs.append(obj)

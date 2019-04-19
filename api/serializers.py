@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from api.models import Discovery, Category, Comments
+from django.contrib.auth.models import User
+
 
 class CommentSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -17,11 +19,15 @@ class DiscoverySerializer(serializers.ModelSerializer):
 	comments = CommentSerializer(many=True)
 	class Meta:
 		model = Discovery
-		fields = ('id','timestamp','title','url','channel_name','description','votes','thumbnail', 'categories_obj','comments')
+		fields = ('id','timestamp','title','url','channel_name','author','description','votes','thumbnail', 'categories_obj','comments')
 		depth=1
 
 class DiscoveryCatalogSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Discovery
-		fields = ('id','timestamp','title','thumbnail','votes')
+		fields = ('id','timestamp','title','author','thumbnail','channel_name','votes')
 	
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = ('id','first_name','last_name','username','email')
