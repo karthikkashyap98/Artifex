@@ -13,21 +13,25 @@ class CategorySerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Category
 		fields = ('id', 'title', 'icon')
+class UserSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = User
+		fields = ('id','first_name','last_name','username','email')
 
 class DiscoverySerializer(serializers.ModelSerializer):
 	categories_obj = CategorySerializer(many=True)
 	comments = CommentSerializer(many=True)
+	author = UserSerializer()
+
 	class Meta:
 		model = Discovery
 		fields = ('id','timestamp','title','url','channel_name','author','description','votes','thumbnail', 'categories_obj','comments')
 		depth=1
 
 class DiscoveryCatalogSerializer(serializers.ModelSerializer):
+	author = UserSerializer()
 	class Meta:
 		model = Discovery
 		fields = ('id','timestamp','title','author','thumbnail','channel_name','votes')
+		depth = 1
 	
-class UserSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = User
-		fields = ('id','first_name','last_name','username','email')

@@ -15,9 +15,9 @@ from rest_framework.decorators import action, permission_classes, api_view
 
 
 class DiscoveryView(viewsets.ModelViewSet):
-	queryset = Discovery.objects.all()
+	queryset = Discovery.objects.all().order_by("-timestamp")
 	serializer_class = DiscoverySerializer
-	permission_classes = [IsAuthenticatedOrReadOnly , ]
+	# permission_classes = [IsAuthenticatedOrReadOnly , ]
 
 	def create(self, request):
 		title = request.data['title']
@@ -62,13 +62,15 @@ class CommentView(viewsets.ModelViewSet):
 	queryset = Comments.objects.all()
 	serializer_class = CommentSerializer
 
-
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
 def upvote(request, id):
 	discovery = Discovery.objects.filter(id=id).update(votes=F('votes') + 1)
 	return HttpResponse()
 
 
-
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
 def downvote(request, id):
 	discovery = Discovery.objects.filter(id=id).update(votes=F('votes') - 1)	
 	return HttpResponse()		
