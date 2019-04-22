@@ -17,7 +17,7 @@ from rest_framework.decorators import action, permission_classes, api_view
 class DiscoveryView(viewsets.ModelViewSet):
 	queryset = Discovery.objects.all().order_by("-timestamp")
 	serializer_class = DiscoverySerializer
-	# permission_classes = [IsAuthenticatedOrReadOnly , ]
+	permission_classes = [IsAuthenticatedOrReadOnly , ]
 
 	def create(self, request):
 		title = request.data['title']
@@ -28,6 +28,7 @@ class DiscoveryView(viewsets.ModelViewSet):
 		thumb = str(url).split("=")
 		print(url)
 		string1 = str(thumb[1])
+		embed = f"https://www.youtube.com/embed/{string1}"
 		thumbnail = f"https://img.youtube.com/vi/{string1}/0.jpg"
 		print(thumbnail)
 		new_post = Discovery.objects.create(title = title, 
@@ -36,7 +37,8 @@ class DiscoveryView(viewsets.ModelViewSet):
 			url=url, 
 			categories=categories,
 			thumbnail=thumbnail,
-			author=request.user
+			author=request.user,
+			embed=embed
 			)
 
 

@@ -17,6 +17,7 @@ class Discovery(models.Model):
 	url = models.CharField(max_length=150)
 	channel_name = models.CharField(max_length=100)
 	thumbnail = models.CharField(max_length=150, blank=True, null=False)
+	embed = models.CharField(max_length=200, blank=True, null=False)
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	description = models.TextField()
 	votes = models.IntegerField(default=0)
