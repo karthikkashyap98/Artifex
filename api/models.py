@@ -21,7 +21,8 @@ class Discovery(models.Model):
 	author = models.ForeignKey(User, on_delete=models.CASCADE)
 	description = models.TextField()
 	votes = models.IntegerField(default=0)
-	categories = ArrayField(models.IntegerField(blank=True, null=True), blank=True)
+	categories = ArrayField(models.IntegerField(blank=True, null=True), blank=True, default=list)
+	vote = ArrayField(models.IntegerField(blank=True,null=True), blank=True)
 
 	@property
 	def categories_obj(self):

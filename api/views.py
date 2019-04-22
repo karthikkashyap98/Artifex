@@ -35,6 +35,7 @@ class DiscoveryView(viewsets.ModelViewSet):
 			description =description, 
 			channel_name=channel_name,
 			url=url, 
+			vote=[0],
 			categories=categories,
 			thumbnail=thumbnail,
 			author=request.user,
@@ -43,15 +44,6 @@ class DiscoveryView(viewsets.ModelViewSet):
 
 
 		return HttpResponse()
-
-	def list(self, request):
-		 queryset = Discovery.objects.all()
-		 serializer = DiscoveryCatalogSerializer(queryset, many=True)
-		 return Response(serializer.data)
-	
-
-
-
 
 
 class CategoryView(viewsets.ModelViewSet):
@@ -64,19 +56,27 @@ class CommentView(viewsets.ModelViewSet):
 	queryset = Comments.objects.all()
 	serializer_class = CommentSerializer
 
-@api_view(['GET'])
-@permission_classes((IsAuthenticated, ))
-def upvote(request, id):
-	discovery = Discovery.objects.filter(id=id).update(votes=F('votes') + 1)
-	return HttpResponse()
-
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
-def downvote(request, id):
-	discovery = Discovery.objects.filter(id=id).update(votes=F('votes') - 1)	
-	return HttpResponse()		
+def vote(request, id):
 
+	discovery = Discovery.objects.get(id=id)	
+	
+	if request.user.id not in discovery.vote:
+		discovery.vote.append(request.user.id)
+		discovery.votes += 1
+		discovery.save()
+		print(discovery.votes)
+		print(discovery.vote)
+		return HttpResponse()		
+	else:
+		discovery.vote.remove(request.user.id)
+		discovery.votes -= 1
+		discovery.save()
+		print(discovery.votes)
+		print(discovery.vote)
+		return HttpResponse(status=404)
 
 
 class FilterView(viewsets.ModelViewSet):

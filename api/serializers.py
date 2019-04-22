@@ -25,7 +25,7 @@ class DiscoverySerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Discovery
-		fields = ('id','timestamp','title','url','embed','channel_name','author','description','votes','thumbnail', 'categories_obj','comments')
+		fields = ('id','timestamp','title','url','embed','channel_name','author','description','votes','thumbnail', 'categories_obj','comments','vote')
 		depth=1
 
 class DiscoveryCatalogSerializer(serializers.ModelSerializer):

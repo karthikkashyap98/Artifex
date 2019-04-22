@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'ph4youtube.wsgi.application'
 DATABASES = {
       'default': {
           'ENGINE': 'django.db.backends.postgresql_psycopg2',
-          'NAME': 'youtube',
+          'NAME': 'new',
           'USER': 'postgres',
           'PASSWORD': 'password',
           'HOST': 'localhost',

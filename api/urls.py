@@ -17,7 +17,6 @@ router.register('signup', views.Signup, base_name='Signup')
 urlpatterns = [
 
 	path('', include(router.urls)),
-	path('upvote/<int:id>/', views.upvote),
-	path('downvote/<int:id>/', views.downvote),
+	path('vote/<int:id>/', views.vote),
  ]
 
