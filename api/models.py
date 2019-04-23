@@ -23,6 +23,9 @@ class Discovery(models.Model):
 	votes = models.IntegerField(default=0)
 	categories = ArrayField(models.IntegerField(blank=True, null=True), blank=True, default=list)
 	vote = ArrayField(models.IntegerField(blank=True,null=True), blank=True)
+	user_vote = models.BooleanField(default=False)
+
+
 
 	@property
 	def categories_obj(self):

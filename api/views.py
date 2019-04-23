@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from api.models import Discovery, Category, Comments
-from api.serializers import DiscoverySerializer, CategorySerializer, DiscoveryCatalogSerializer, CommentSerializer, UserSerializer
+from api.serializers import DiscoverySerializer, CategorySerializer, CommentSerializer, UserSerializer
 from rest_framework import viewsets, status, generics
 from rest_framework.decorators import action 
 from rest_framework.response import Response
@@ -18,6 +18,7 @@ class DiscoveryView(viewsets.ModelViewSet):
 	queryset = Discovery.objects.all().order_by("-timestamp")
 	serializer_class = DiscoverySerializer
 	permission_classes = [IsAuthenticatedOrReadOnly , ]
+
 
 	def create(self, request):
 		title = request.data['title']
