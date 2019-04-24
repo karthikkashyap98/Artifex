@@ -7,7 +7,7 @@ class CommentSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Comments
 		fields = ('id','user','comment','discovery','timestamp')
-
+		
 
 class CategorySerializer(serializers.ModelSerializer):
 	class Meta:

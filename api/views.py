@@ -57,6 +57,17 @@ class CommentView(viewsets.ModelViewSet):
 	queryset = Comments.objects.all()
 	serializer_class = CommentSerializer
 
+	def create(self, request):
+		comment = request.data['comment']
+		user = request.user
+		discovery = Discovery.objects.get(id=request.data['discovery'])
+		obj = Comments.objects.create(comment=comment,
+			user=user,
+			discovery=discovery
+			)
+		return HttpResponse()
+
+
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
