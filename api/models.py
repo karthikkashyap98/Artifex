@@ -55,3 +55,8 @@ class Comments(models.Model):
 
 
  
+class Subscriber(models.Model):
+	email = models.EmailField()
+	timestamp = models.DateTimeField(auto_now_add=True)
+	first_name = models.CharField(max_length=100, blank=True, null=True)
+	last_name = models.CharField(max_length=100, blank=True, null=True)

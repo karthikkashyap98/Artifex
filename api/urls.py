@@ -13,10 +13,10 @@ router.register('comments',views.CommentView)
 router.register('filter', views.FilterView, base_name="FilterView")
 router.register('signup', views.Signup, base_name='Signup')
 
-
 urlpatterns = [
 
 	path('', include(router.urls)),
 	path('vote/<int:id>/', views.vote),
- ]
+	path('subscribe',views.subscribe)
 
+]

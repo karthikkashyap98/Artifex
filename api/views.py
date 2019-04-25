@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from api.models import Discovery, Category, Comments
+from api.models import Discovery, Category, Comments, Subscriber
 from api.serializers import DiscoverySerializer, CategorySerializer, CommentSerializer, UserSerializer
 from rest_framework import viewsets, status, generics
 from rest_framework.decorators import action 
@@ -15,7 +15,7 @@ from rest_framework.decorators import action, permission_classes, api_view
 
 
 class DiscoveryView(viewsets.ModelViewSet):
-	queryset = Discovery.objects.all().order_by("-timestamp")
+	queryset = Discovery.objects.all().order_by("-votes")
 	serializer_class = DiscoverySerializer
 	permission_classes = [IsAuthenticatedOrReadOnly , ]
 
@@ -54,7 +54,7 @@ class CategoryView(viewsets.ModelViewSet):
 
 
 class CommentView(viewsets.ModelViewSet):
-	queryset = Comments.objects.all()
+	queryset = Comments.objects.all().order_by("-timestamp")
 	serializer_class = CommentSerializer
 
 	def create(self, request):
@@ -81,14 +81,14 @@ def vote(request, id):
 		discovery.save()
 		print(discovery.votes)
 		print(discovery.vote)
-		return HttpResponse()		
+		return Response({"message":"Upvoted"})		
 	else:
 		discovery.vote.remove(request.user.id)
 		discovery.votes -= 1
 		discovery.save()
 		print(discovery.votes)
 		print(discovery.vote)
-		return HttpResponse(status=404)
+		return Response({"message":"Downvoted"})
 
 
 class FilterView(viewsets.ModelViewSet):
@@ -122,5 +122,15 @@ class Signup(viewsets.ViewSet):
 			return HttpResponse(status=404)	
 
 	
+@api_view(['POST'])
+@permission_classes((AllowAny,))
+def subscribe(request):
+	email_id = request.data['email']
+	if not Subscriber.objects.filter(email=email_id):
+		instance = Subscriber.objects.create(email=email_id)
+		return Response({"message":"Subscribed"})
+	else:
+		return Response({"message":"Already Subscribed"})
+			
 
-
+	
